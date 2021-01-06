@@ -199,7 +199,7 @@ int special_land(int move, int money){
 		printf("+--------+\n");	
 		scanf("%*c");	
 		srand(time(NULL));
-		num = rand() % 3 + 1;	//編號 (1-3)
+		num = rand() % 3 + 1;	//編號 (1-3)  
 		switch(num){
 			case 1:
 				printf("內容: 遭到外星人攻擊，損失 2000 元\n");
@@ -212,7 +212,7 @@ int special_land(int move, int money){
 				return money;
 				break;
 			case 3:
-				printf("內容: 退回起點\n");
+//				printf("內容: 退回起點\n");
 				move = 0;
 				return move;
 				break;		
@@ -284,7 +284,7 @@ int main()
 	num1 = num2 = num3 = num4 = 1;
 	
 	//開始的地圖呈現  
-	scanf("%d", &enter);
+	scanf("%d%*c", &enter);
 	if(enter == 1)
 	{
 		//system("cls"); //清除畫面 
@@ -335,11 +335,12 @@ int main()
 		{
 			player1[i] = 0;	// player1 歸零 
 		}
-		scanf("%*c");
+//		scanf("%*c");
 		if(check1 == 1){
 			scanf("%c", &n);
 			die = dice(n);
-			move1 = move1 + die;
+			printf("player1 move: %d\n", die);
+			move1 = move1 + die;  
 			if(move1 == 12){	//監獄 
 				num1 = 1;
 				check1 = 0;
@@ -355,7 +356,7 @@ int main()
 					else
 						player1[i] = '@';
 				}
-				scanf("%*c", &n);	
+				scanf("%*c");	
 				system("cls");
 				map(player1, player2, player3, player4, land_value, level, pay); 			
 				 
@@ -389,7 +390,7 @@ int main()
 			else
 				player1[i] = '@';
 		}
-		scanf("%*c", &n);	
+		scanf("%*c");	
 		system("cls");
 		map(player1, player2, player3, player4, land_value, level, pay);	
 		
@@ -400,7 +401,12 @@ int main()
 				money1 = result;
 				printf("%d\n", money1);		//測試 	
 			}
-			else{
+			else{	//退回起點前先歸零，再讓 player1[move1] = 1 
+				printf("內容: player1 退回起點\n");
+				for(i = 0; i < 25; i++)
+				{
+					player1[i] = 0;	// player1 歸零 
+				}				
 				move1 = result;
 				player1[move1] = 1;
 				for(i = 0; i < 25; i++)
@@ -412,26 +418,27 @@ int main()
 				}			
 			}
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);							
 		}
 		else if(move1 == 12 && check1 == 0 && num1 == 1){		//監獄  
 			printf("\n內容: 下次自己回合時需骰骰子，骰到偶數，再下一回合才可移動 (奇數偶數只是判斷下回合是否可移動)\n");				
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);	
-		}	
+		}		
 /////////////////////		
 		for(i = 0; i < 25; i++)
 		{
 			player2[i] = 0;	// player2 歸零 
 		}
-		scanf("%*c");
+//		scanf("%*c");
 		if(check2 == 1){
 			scanf("%c", &n);
 			die = dice(n);
+			printf("player2 move: %d\n", die);			
 			move2 = move2 + die;
 			if(move2 == 12){	//監獄 
 				num2 = 1;
@@ -448,7 +455,7 @@ int main()
 					else
 						player2[i] = '#';
 				}
-				scanf("%*c", &n);	
+				scanf("%*c");	
 				system("cls");
 				map(player1, player2, player3, player4, land_value, level, pay); 			
 				 
@@ -482,7 +489,7 @@ int main()
 			else
 				player2[i] = '#';
 		}
-		scanf("%*c", &n);	
+		scanf("%*c");	
 		system("cls");
 		map(player1, player2, player3, player4, land_value, level, pay);	
 		
@@ -493,7 +500,12 @@ int main()
 				money2 = result;
 				printf("%d\n", money2);		//測試 	
 			}
-			else{
+			else{	//退回起點前先歸零，再讓 player2[move2] = 1 
+				printf("內容: player2 退回起點\n");
+				for(i = 0; i < 25; i++)
+				{
+					player2[i] = 0;	// player2 歸零 
+				}								
 				move2 = result;
 				player2[move2] = 1;
 				for(i = 0; i < 25; i++)
@@ -505,14 +517,14 @@ int main()
 				}			
 			}
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);							
 		}
 		else if(move2 == 12 && check2 == 0 && num2 == 1){		//監獄  
 			printf("\n內容: 下次自己回合時需骰骰子，骰到偶數，再下一回合才可移動 (奇數偶數只是判斷下回合是否可移動)\n");				
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);	
 		}	
@@ -521,10 +533,11 @@ int main()
 		{
 			player3[i] = 0;	// player3 歸零 
 		}
-		scanf("%*c");
+//		scanf("%*c");
 		if(check3 == 1){
 			scanf("%c", &n);
 			die = dice(n);
+			printf("player3 move: %d\n", die);			
 			move3 = move3 + die;
 			if(move3 == 12){	//監獄 
 				num3 = 1;
@@ -541,7 +554,7 @@ int main()
 					else
 						player3[i] = '&';
 				}
-				scanf("%*c", &n);	
+				scanf("%*c");	
 				system("cls");
 				map(player1, player2, player3, player4, land_value, level, pay); 			
 				 
@@ -575,7 +588,7 @@ int main()
 			else
 				player3[i] = '&';
 		}
-		scanf("%*c", &n);	
+		scanf("%*c");	
 		system("cls");
 		map(player1, player2, player3, player4, land_value, level, pay);	
 		
@@ -586,7 +599,12 @@ int main()
 				money3 = result;
 				printf("%d\n", money3);		//測試 	
 			}
-			else{
+			else{	//退回起點前先歸零，再讓 player3[move3] = 1
+				printf("內容: player3 退回起點\n");	
+				for(i = 0; i < 25; i++)
+				{
+					player3[i] = 0;	// player3 歸零 
+				}					
 				move3 = result;
 				player3[move3] = 1;
 				for(i = 0; i < 25; i++)
@@ -598,14 +616,14 @@ int main()
 				}			
 			}
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);							
 		}
 		else if(move3 == 12 && check3 == 0 && num3 == 1){		//監獄  
 			printf("\n內容: 下次自己回合時需骰骰子，骰到偶數，再下一回合才可移動 (奇數偶數只是判斷下回合是否可移動)\n");				
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);	
 		}
@@ -614,10 +632,11 @@ int main()
 		{
 			player4[i] = 0;	// player4 歸零 
 		}
-		scanf("%*c");
+//		scanf("%*c");
 		if(check4 == 1){
 			scanf("%c", &n);
 			die = dice(n);
+			printf("player4 move: %d\n", die);			
 			move4 = move4 + die;
 			if(move4 == 12){	//監獄 
 				num4 = 1;
@@ -634,7 +653,7 @@ int main()
 					else
 						player4[i] = '$';
 				}
-				scanf("%*c", &n);	
+				scanf("%*c");	
 				system("cls");
 				map(player1, player2, player3, player4, land_value, level, pay); 			
 				 
@@ -668,7 +687,7 @@ int main()
 			else
 				player4[i] = '$';
 		}
-		scanf("%*c", &n);	
+		scanf("%*c");	
 		system("cls");
 		map(player1, player2, player3, player4, land_value, level, pay);	
 		
@@ -679,7 +698,12 @@ int main()
 				money4 = result;
 				printf("%d\n", money4);		//測試 	
 			}
-			else{
+			else{	//退回起點前先歸零，再讓 player4[move4] = 1
+				printf("內容: player4 退回起點\n");	
+				for(i = 0; i < 25; i++)
+				{
+					player4[i] = 0;	// player4 歸零 
+				}							
 				move4 = result;
 				player4[move4] = 1;
 				for(i = 0; i < 25; i++)
@@ -691,14 +715,14 @@ int main()
 				}			
 			}
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);							
 		}
 		else if(move4 == 12 && check4 == 0 && num4 == 1){		//監獄  
 			printf("\n內容: 下次自己回合時需骰骰子，骰到偶數，再下一回合才可移動 (奇數偶數只是判斷下回合是否可移動)\n");				
 			//重新印地圖  
-			scanf("%*c", &n);	
+			scanf("%*c");	
 			system("cls");
 			map(player1, player2, player3, player4, land_value, level, pay);	
 		}			
